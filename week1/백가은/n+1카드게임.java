@@ -1,6 +1,7 @@
 import java.util.*;
 
-// dp일까?
+// 완탐 -> 시간, 메모리 초과
+// dp 구현을 못 하겠어요
 class Solution {
     
     static int coins, ans, len;
