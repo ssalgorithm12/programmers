@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     
     static StringTokenizer st;
-    static List<String[]> list = new ArrayList<>();  // 답을 구해야 하는 수식 저장 리스트
+    static List<String[]> list = new ArrayList<>();  // 답 구해야 하는 수식 저장 리스트
     // ans : 몇 진법인지 특정되는 경우 ans 변수에 저장
     // max : 최대값 이상인 (max + 1)진법부터 가능
     static int ans, max;                             
@@ -143,5 +143,5 @@ class Solution {
         if(sb.length() == 0) return "0";
         return sb.reverse().toString();
     }
-               
+                
 }

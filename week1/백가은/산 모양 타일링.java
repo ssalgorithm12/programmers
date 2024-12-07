@@ -13,7 +13,7 @@ class Solution {
         dp[1] = 1;
         int cnt = 0;                    // 지금까지 산 모양 타일이 몇 개 있었는지 저장
         boolean mountainAfter = false;  // 다음 타일이 산 모양인지 여부
-        boolean mountainBefore = false;  // 이전 타일이 산 모양이었는지 여부
+        boolean mountainBefore = false;  // 이전 타일이 산 모양인지 여부
         
         for(int i = 2; i <= 2 * n + 1 + len; i++) {
             
