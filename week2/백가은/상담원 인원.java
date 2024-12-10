@@ -74,7 +74,7 @@ class Solution {
         }
         
         for(int i = 1; i <= m - (t - 1); i++) {
-            if(waiting[depth][i] == INF || i > m - cnt) continue;
+            if(i > m - cnt) continue;
             comb(depth + 1, sum + waiting[depth][i], cnt + i);
         }
     }
