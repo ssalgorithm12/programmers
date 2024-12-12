@@ -12,12 +12,10 @@ class Solution {
         List<int[]>[] arr = new ArrayList[k+1];
         
         // 리스트 초기화 
-        for(int i = 0; i <= k; i++)
-            arr[i] = new ArrayList<>();
+        for(int i = 0; i <= k; i++) arr[i] = new ArrayList<>();
         
         // 리스트에 값 할당 
-        for(int[] x: reqs)
-            arr[x[2]].add(x);
+        for(int[] x: reqs) arr[x[2]].add(x);
         
         // 반복문을 통해 기다려야 하는 시간 계산  
         for(int i = 1; i <= k; i++){
@@ -54,8 +52,7 @@ class Solution {
         Arrays.fill(mentor2, 1);
         while(count < n){
             // 가장 차이가 큰 것
-            int max_d = 0;
-            int index = 0;
+            int max_d = 0, index = 0;
             for(int i = 1; i <= k; i++){
                 int dif = wait[i][mentor2[i]] - wait[i][mentor2[i]+1];
                 if(dif > max_d){
@@ -69,9 +66,7 @@ class Solution {
         }
         
         int answer = 0;
-        for(int i = 1; i <= k; i++){
-            answer += wait[i][mentor2[i]];            
-        }
+        for(int i = 1; i <= k; i++) answer += wait[i][mentor2[i]];            
         
         return answer;
     }
