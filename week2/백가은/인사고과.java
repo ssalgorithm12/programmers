@@ -1,6 +1,8 @@
 package 백가은;
 import java.util.*;
 
+// 정렬 후 탐색
+// 왜 틀린지 모르겠음
 class Solution {
     public int solution(int[][] arr) {
         int n = arr.length;
