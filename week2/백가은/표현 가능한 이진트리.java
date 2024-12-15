@@ -20,7 +20,7 @@ class Solution {
         int[] answer = new int[n];
         for(int i = 0; i < n; i++) {
             long num = numbers[i];
-            binaryNum = makeBinary(num);  // 이진수로 변환
+            binaryNum = makeBinary(num);  // 이진수 변환
         
             // 이진수 앞에 0을 넣어서 포화 이진트리로 만들기
             int len = binaryNum.length();
