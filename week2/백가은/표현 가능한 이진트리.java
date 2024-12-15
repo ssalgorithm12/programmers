@@ -1,5 +1,7 @@
 import java.util.*;
 
+// 3번 빼고 시간초과인데 어디를 최적화해야 할지 모르겠음
+// 더미노드 만들고 이진수 할당 후 dfs로 자식 탐색하며 부모 = 0 & 자식 = 1인 경우 불가능한 것으로 판단
 class Solution {
     static Node root;
     static int res, idx;
