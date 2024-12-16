@@ -1,52 +1,27 @@
 import java.util.*;
 
-// 3번 빼고 시간초과인데 어디를 최적화해야 할지 모르겠음
-// 더미노드 만들고 이진수 할당 후 dfs로 자식 탐색하며 부모 == 0 && 자식 == 1인 경우 불가능한 것으로 판단
+// 트리에 이진수 할당한 후 부모가 더미노드인데 자식이 더미노드가 아닌 경우 판단
 class Solution {
-    static Node root;
-    static int res, idx;
-    static String binaryNum;
-    static class Node{
-        int val;
-        Node left, right;
-        Node(){}
-        Node(int val, Node left, Node right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-    
+    static String binaryNum;// 이진수로 변환된 결과
+    static int perfectLen, res;
     public int[] solution(long[] numbers) {
         int n = numbers.length;
         int[] answer = new int[n];
         for(int i = 0; i < n; i++) {
             long num = numbers[i];
-            binaryNum = makeBinary(num);  // 이진수 변환
-        
-            // 이진수 앞에 0을 넣어서 포화 이진트리로 만들기
-            int len = binaryNum.length();
-            int gap = calPerfectLen(len) - len;
-            String tmp = "";
-            for(int j = 0; j < gap; j++) {
-                tmp += "0";
-            }
-            binaryNum = tmp + binaryNum;
-            
-            root = new Node();
-            makeTree(root, gap + len);
-            idx = 0;
-            fillTree(root);
-            res = 1;
-            checkTree(root);
-            answer[i] = res;
+            makeBinary(num);                  // 이진수로 변환
+            makePerfectBinary();              // 포화이진트리 만들기 위해 이진수에 0 추가
+            int root = (perfectLen + 1) / 2;  // 루트 노드의 인덱스
+            int gap = root / 2;               // 자식과의 인덱스 차이
+            res = 1;                          // 결과값
+            checkTree(root, gap);             // 이분탐색으로 유효성검사
+            answer[i] =  res;
         }
         
         return answer;
     }
     
-    // 이진수로 변환
-    static String makeBinary(long num){
+    static void makeBinary(long num){
         String res = "";
         int pow = 0;
         while(true) {
@@ -57,11 +32,22 @@ class Solution {
             if(num - Math.pow(2, pow) >= 0) {
                 num -= Math.pow(2, pow);
                 res += "1";
-            }
-            else res += "0";
+                
+            } else res += "0";
             pow--;
         }
-        return res;
+        binaryNum = res;
+    }
+    
+    static void makePerfectBinary() {
+        int len = binaryNum.length();
+        perfectLen = calPerfectLen(len);
+        int gap = perfectLen - len;
+        String tmp = "";
+        for(int j = 0; j < gap; j++) {
+            tmp += "0";
+        }
+        binaryNum = tmp + binaryNum;
     }
     
     // 가장 가까운 포화 이진트리의 노드수 계산
@@ -70,42 +56,19 @@ class Solution {
         return (int) Math.pow(2, h) - 1;                          // 포화 이진 트리 노드 수
     }
     
-    // 포화 이진트리 노드수만큼 이진트리의 틀 만들기
-    static void makeTree(Node root, int len) {
-        Queue<Node> q = new LinkedList<>();
-        q.offer(root);
-        int cnt = 1;
-        while(true){
-            Node cur = q.poll();
-            cur.left = new Node();
-            cur.right = new Node();
-            cnt += 2;
-            if(cnt == len) return;
-            q.offer(cur.left);
-            q.offer(cur.right);
+    // 이분탐색으로 자신이 더미노드이면서 자식이 더미노드가 아닌 경우 res = 0으로 변경
+    static void checkTree(int idx, int gap) {
+        char cur = binaryNum.charAt(idx - 1);
+        char left = binaryNum.charAt(idx - gap - 1);
+        char right = binaryNum.charAt(idx + gap - 1); 
+        if(cur == '0' && (left == '1' || right == '1')) {
+            res = 0;
+            return;
+        }
+        if(gap > 1) {
+            checkTree(idx - gap, gap / 2);
+            checkTree(idx + gap, gap / 2);
         }
     }
     
-    // 전위순회하며 트리에 수 채우기
-    static void fillTree(Node cur) {
-        if(cur == null) return;
-        fillTree(cur.left);
-        cur.val = binaryNum.charAt(idx++) - '0';
-        fillTree(cur.right);
-    }
-    
-    // 재귀호출로 자식 탐색
-    static void checkTree(Node cur) {
-        
-        // 자식 없는 경우 넘어가기
-        if(cur.left != null){
-            // 부모가 더미노드인데 자식은 더미노드가 아닌 경우 res = 0, 탐색 종료
-            if(cur.val == 0 && (cur.left.val == 1 || cur.right.val == 1)) {
-                res = 0;
-                return;
-            }
-            checkTree(cur.left);
-            checkTree(cur.right);
-        }
-    }
 }
