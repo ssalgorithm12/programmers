@@ -1,9 +1,10 @@
 import java.util.*;
 
+// 유니온파인드로 병합된 셀 관리
 class Solution {
     static StringTokenizer st;
-    static String[][] map = new String[51][51];
-    static P[][] parent = new P[51][51];
+    static String[][] map = new String[51][51];         // 표 배열
+    static P[][] parent = new P[51][51];                // 유니온파인드 부모 배열
     static class P{
         int r, c;
         P(int r, int c) {
@@ -14,6 +15,7 @@ class Solution {
     
     public String[] solution(String[] commands) {
         List<String> ansList = new ArrayList<>();
+        // 부모를 자신으로 초기화
         for(int i = 1; i <= 50; i++) {
             for(int j = 1; j <= 50; j++) {
                 parent[i][j] = new P(i, j);
@@ -97,16 +99,23 @@ class Solution {
             String val1 = map[p1.r][p1.c];
             String val2 = map[p2.r][p2.c];
 
-            if(val1 != null) {
-                parent[p2.r][p2.c] = p1;
-
-            } else if(val1 == null && val2 != null) {
-                parent[p1.r][p1.c] = p2;          
+            if(val1 == null && val2 != null) {
+                changeParent(p1, p2);
+                
+            } else {
+                changeParent(p2, p1);
             }
         }
     }
     
-    // 부모가 분산됐을 수 있음?
+    static void changeParent(P from, P to) {
+        for(int i = 1; i <= 50; i++) {
+            for(int j = 1; j <= 50; j++) {
+                if(isSame(find(new P(i, j)), from)) parent[i][j] = to;
+            }
+        }
+    }
+    
     static void unmerge(P p) {
         P par = find(p);
         String val = map[par.r][par.c] != null ? new String(map[par.r][par.c]) : null;
@@ -114,6 +123,7 @@ class Solution {
             for(int j = 1; j <= 50; j++) {
                 if(isSame(find(new P(i, j)), par)) {
                     parent[i][j] = new P(i, j);
+                    
                     if(isSame(new P(i, j), p)) map[i][j] = val;
                     else map[i][j] = null;
                 }
@@ -122,7 +132,7 @@ class Solution {
     }
     
     static P find(P p) {
-        if(parent[p.r][p.c].r == p.r && parent[p.r][p.c].c == p.c) return p;
+        if(isSame(p, parent[p.r][p.c])) return p;
         return parent[p.r][p.c] = find(parent[p.r][p.c]);
     }
     
