@@ -11,6 +11,7 @@ class Solution {
             index = 0;
             count = 0;
             check = new boolean[64];
+            // 이진수 변환 
             while(temp > 0){
                 if(temp%2 == 1){
                     check[index] = true;
@@ -19,7 +20,8 @@ class Solution {
                 temp/=2;
                 index++;
             }
-            
+
+            // 이진트리인지 여부 탐색
             for(int x: div){
                 if(!check[x]) continue;
                 if(find(check, x, x+1)==count)
