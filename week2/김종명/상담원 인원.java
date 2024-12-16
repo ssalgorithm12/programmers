@@ -1,4 +1,4 @@
-package programmers;
+package Programmers;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -10,7 +10,15 @@ public class 상담원인원 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		solution(3, 5, new int[][]{{10, 60, 1},{15, 100, 3}});
+		solution(2, 3, new int[][]{
+		    {0, 100, 1},
+		    {10, 50, 1},
+		    {20, 30, 1},
+		    {30, 10, 2},
+		    {40, 10, 2},
+		    {50, 10, 2},
+		    {60, 10, 1}
+		    });
 	}
 	
 	static int K, N;
@@ -38,7 +46,7 @@ public class 상담원인원 {
     	minWaiting = Integer.MAX_VALUE - 1;
     	DFS(0, 1);
     	
-  
+    	System.out.println(minWaiting);
         return minWaiting;
         
     }
@@ -50,8 +58,11 @@ public class 상담원인원 {
     		int time = checkTime();
     		
     		if(time < minWaiting) {
+    			
     			minWaiting = time;
     		}
+    		
+    		System.out.println(Arrays.toString(mentos));
     		
     		return;
     	}
@@ -113,22 +124,30 @@ public class 상담원인원 {
     		int cost = cur.cost;
     		int type = cur.type;
     		
-    		if(!mento[type].isEmpty() && mento[type].peek() <= start) {
-    			mento[type].poll();
-    		}
-    			
-    		if(mento[type].size() < mentos[type]) {
-    				
+    		if(mento[type].isEmpty()) {
+    			// 멘토가 남아있다면 추가
     			mento[type].offer(start + cost);
-    				
-    		}else if(mento[type].size() == mentos[type]) {
-    				
-    			int time = mento[type].poll();
     			
-    			waiting += time - start;
+    		}else {
     			
-    			mento[type].offer(time + cost);
-    		}		
+    			while(!mento[type].isEmpty()  && mento[type].peek() <= start) {
+    				// 이미 시간 지난 멘토들 빼주기
+    				mento[type].poll();
+    			}
+    			
+    			if(mento[type].size() >= mentos[type]) {
+    				// 이미 멘토가 꽉 차 있다면
+    				int endTime = mento[type].poll();
+    				
+    				waiting += endTime - start;
+    				
+    				mento[type].offer(endTime + cost);
+    			}else {
+    				// 멘토가 자리가 비어있다면
+    				mento[type].offer(start + cost);
+    			}
+    			
+    		}
 
     	}
     	
