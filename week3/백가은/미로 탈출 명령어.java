@@ -45,7 +45,7 @@ class Solution {
                 int ny = cur.y + dy[i];
                 
                 if(!check(nx, ny)) continue;
-                // 가능한 경우 경로 반환환
+                // 가능한 경우 경로 반환
                 if(cur.d + 1 == dist) {
                     if(nx == endX && ny == endY) {
                         answer = cur.command + dir[i];
@@ -55,7 +55,7 @@ class Solution {
                 }
 
                 // 맨해튼 거리로 가도 불가능 한 경우 가지치기
-                // 가능한 경우 다른 방향향 탐색 하지 않고 break
+                // 가능한 경우 다른 방향 탐색 하지 않고 break
                 if(Math.abs(endX - nx) + Math.abs(endY - ny) <= dist - (cur.d + 1)) {
                     pq.offer(new P(nx, ny, cur.d + 1, cur.command + dir[i]));
                     break;
