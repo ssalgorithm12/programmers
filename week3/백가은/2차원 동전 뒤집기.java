@@ -22,16 +22,21 @@ class Solution {
         else return min;
     }
     
+    /*
+    효율성 제고 방안
+    - 매번 유효성 검사하는 것 비효율적
+    - 뒤집었을때 영향가는 행/열 먼저 뒤집기?(그리디)
+        - 우선순위 결정하는게 더 복잡하지 않을까?
+    */
     static void backtracking(int[] loc, int cnt) {
         
-        if(cnt >= min) return;                      // 가지치기
-        if(loc[1] == w) {                           // 다음 행으로 가기
-            backtracking(new int[]{loc[0] + 1, 0}, cnt);
-        }
-        if(loc[0] == h) {                           // 종료조건
-            if(isValid()) min = cnt;
+        if(cnt >= min) return;          // 가지치기
+        if(loc[0] == h) {               // 종료조건
+            if(isValid()) min = cnt;    // 목표 상태와 같아졌으면 최소값 갱신
             return;
             
+        } else if(loc[1] == w) {        // 다음 행으로 가기
+            backtracking(new int[]{loc[0] + 1, 0}, cnt);
         }
         
         // 배열 순회하며 목표 상태와 다른 칸이 있으면 행 또는 열 뒤집기
