@@ -1,26 +1,15 @@
 import java.util.*;
 
+// 길과 가장 많이 연관된 등대만 고르기
+// 등대 고른 후 해당 등대가 밝히는 길과 연관된 등대의 연관 수 줄이기
 class Solution {
-    static int cnt, min, n;
-    static int[][] lighthouse;
-    static List<Integer>[] adj;    
-    static class Light{
-        int num, left, use;
-        public Light(int num, int left, int use) {
-            this.num = num;
-            this.left = left;
-            this.use = use;
-        }
-    }
-    
     public int solution(int n, int[][] lighthouse) {
-        this.n = n;
-        this.lighthouse = lighthouse;
-        adj = new List[n + 1];  // 각 등대가 새로 밝힐 수 있는 길 목록
+                
+        List<Integer>[] adj = new List[n + 1];  // 각 등대가 속한 도로의 인덱스 저장 배열
         for(int i = 1; i <= n; i++) {
             adj[i] = new ArrayList<>();
         }
-        int max = 0;
+        
         for(int i = 0; i < n - 1; i++) {
             int a = lighthouse[i][0];
             int b = lighthouse[i][1];
@@ -29,9 +18,32 @@ class Solution {
             adj[b].add(i);
         }
         
-        // 그리디하게 새로 밝힐 수 있는 길 개수 많은 것부터 사용하면
-        // 최소를 보장할 수 없음
-        // 완탐으로 조합하기엔 너무 많음
+        int cnt = 0;
+        int left = n - 1;
+        int node = -1;
+        boolean[] visited = new boolean[n];
+        while(left > 0) {
+            
+            // max인 등대가 여러개인 경우 백트래킹 등 완탐해야 함
+            int max = 0;
+            for(int i = 1; i <= n; i++) {
+                if(adj[i] != null && adj[i].size() > max) {
+                    max = adj[i].size();
+                    node = i;
+                }
+            }
+            cnt++;
+            left -= adj[node].size();
+            
+            for(int road : adj[node]) {
+                if(visited[road]) continue;
+                visited[road] = true;
+                int tmp = lighthouse[road][0] == node ? lighthouse[road][1] : lighthouse[road][0];
+                adj[tmp].remove((Integer)road);
+            }
+            adj[node] = null;
+        }
         
+        return cnt;
     }
 }
