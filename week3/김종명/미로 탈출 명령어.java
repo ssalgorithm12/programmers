@@ -1,6 +1,7 @@
-package Programmers;
+package programmers;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class 미로탈출명령어 {
@@ -11,104 +12,112 @@ public class 미로탈출명령어 {
 	}
 	
 	// d l r u
-	// 시간 초과
-	// 그리디하게 접근해야할듯
 	
-	static int n,m, r, c, k;
-	static String[] command = {"d", "l", "r", "u"};
-	static int[] dr = {1, 0, 0, -1};
-	static int[] dc = {0, -1, 1, 0};
+	static int N, M, X, Y, R, C, K;
 	
-    public String solution(int n, int m, int x, int y, int r, int c, int k) {
-    	
-    	this.n= n;
-    	this.m = m;
-    	this.r = r;
-    	this.c = c;
-    	this.k = k;
-    	
-    	int distance = Math.abs(x - r) + Math.abs(y - c);
-    	
-    	if(distance > k || (k - distance) % 2 == 1) {
-    		
-    		return "impossible";
-    	}
-    	
-        P result = BFS(x, y);
-    	
-        if(result == null) {
-        	return "impossible";
-        }else {
-        	return result.answer.toString();
-        }
-    }
-    
-    static class P{
-    	int x,y;
-    	StringBuilder answer;
-    	
-    	public P(int x, int y, StringBuilder answer) {
-    		this.x = x;
-    		this.y = y;
-    		this.answer = new StringBuilder(answer.toString());
-    	}
-    }
-    
-    static P BFS(int x, int y) {
-    	
-    	P start = new P(x, y, new StringBuilder());
-    	
-    	Queue<P> container = new LinkedList<>();
-    	
-    	container.offer(start);
-    	
-    	int depth = 0;
-    	
-    	while(!container.isEmpty()) {
-    		
-    		int size = container.size();
-    		
-    		for(int i=0; i<size; i++) {
-    			
-    			P cur = container.poll();
-        		
-        		int cx = cur.x;
-        		int cy = cur.y;
-        		
-        		if(cx == r && cy == c && depth == k) {
-        			return cur;
-        		}
-        		
-        		StringBuilder answer = cur.answer;
-        		
-        		int distance = Math.abs(cx - r) + Math.abs(cy - c);
-        		
-        		if(distance > k - depth) {
-        			continue;
-        		}
-        		
-        		for(int d=0; d<4; d++) {
-        			
-        			int nx = cx + dr[d];
-        			int ny = cy + dc[d];
-        			
-        			if(!check(nx, ny)) {
-        				continue;
-        			}
-        			
-        			answer.append(command[d]);
-        			container.offer(new P(nx, ny, answer));
-        			answer.deleteCharAt(answer.length() - 1);
-        		}
-        			
-    		}
-    		depth += 1;
-    	}
-    	
-    	return null;
-    }
-   
-    static boolean check(int x, int y) {
-    	return x > 0 && y > 0 && x <= n && y <= m;
-    }
+	static String answer;
+	
+	static class P implements Comparable<P>{
+		int x;
+		int y;
+		int dist;
+		String way;
+		
+		public P(int x, int y, int dist, String way) {
+			this.x = x;
+			this.y = y;
+			this.dist = dist;
+			this.way = way;
+		}
+		
+		@Override
+		public int compareTo(P o) {
+			
+			return way.compareTo(o.way);
+		}
+		
+	}
+	
+	public String solution(int n, int m, int x, int y, int r, int c, int k) {
+		
+		N = n;
+		M = m;
+		X = x;
+		Y = y;
+		R = r;
+		C = c;
+		K = k;
+		
+		int distance = Math.abs(X - R) + Math.abs(Y - C);
+		
+		if(distance > K) {
+			
+			return "impossible";
+		}
+		
+		boolean isArrive = BFS();
+		
+		if(isArrive) {
+			return answer;
+		}else {
+			return "impossible";
+		}
+		
+	}
+	
+	
+	static boolean BFS() {
+
+		int[] dr = {1, 0, 0, -1};
+		int[] dc = {0, -1, 1, 0};
+		String[] command = {"d", "l", "r", "u"};
+		
+		PriorityQueue<P> container = new PriorityQueue<>();
+		
+		container.offer(new P(X, Y, 0, ""));
+		
+		boolean isArrive = false;
+		
+		while(!container.isEmpty()) {
+			
+			P cur = container.poll();
+			
+			int cx = cur.x;
+			int cy = cur.y;
+			int cd = cur.dist;
+			String cw = cur.way;
+			
+			if(cd == K && cx == R && cy == C) {
+				isArrive = true;
+				answer = cw;
+				break;
+			}
+			
+			if(cd == K) {
+				
+				continue;
+			}
+			
+			for(int d=0; d<4; d++) {
+				
+				int nx = cx + dr[d];
+				int ny = cy + dc[d];
+				int nd = cd + 1;
+				String nw = cw.concat(command[d]);
+				
+				if(!check(nx, ny)) {
+					continue;
+				}
+				
+				container.offer(new P(nx, ny, nd, nw));
+			}
+			
+		}
+		
+		return isArrive;
+	}
+	
+	static boolean check(int x, int y) {
+		return x > 0 && y > 0 && x <= N && y <= M;
+	}
 }
