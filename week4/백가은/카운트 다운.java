@@ -4,7 +4,7 @@ import java.util.*;
 class Solution {
     public int[] solution(int target) {
 
-        // dp 배열 초기화
+        // dp 초기화
         int[][] dp = new int[target + 1][2];
         dp[0][0] = 0;
         dp[0][1] = 0;
