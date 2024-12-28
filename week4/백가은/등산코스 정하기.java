@@ -1,6 +1,6 @@
 import java.util.*;
 
-// 우선순위큐 + BFS
+// BFS + 우선순위큐
 class Solution {
     
     static int[] gates, visited;
