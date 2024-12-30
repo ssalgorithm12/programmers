@@ -1,5 +1,6 @@
 import java.util.*;
 
+// 완전탐색(백트래킹)
 class Solution {
     static int n, min;
     static int[][] map;
@@ -16,7 +17,7 @@ class Solution {
         return min;
     }
     
-    static void backtracking(int x, int y, int cnt) {
+    static void backtracking(int x, int y, int cnt) {        
         
         if(cnt >= min) return;                      // 가지치기
         
@@ -37,21 +38,32 @@ class Solution {
                 }
             }
             
-            // 회전 횟수
-            for(int i = 1; i <= 3; i++) {
-                
-                map[x][y] = (map[x][y] + i) % 4;
+            for(int i = 0; i <= 3; i++) {                       // 회전 횟수 반복문
+                map[x][y] = (map[x][y] + i) % 4;                // 현재 좌표 회전
                 
                 for(int j = 0; j < 4; j++) {    
                     int nx = x + dx[j];
                     int ny = y + dy[j];
                     
                     if(!check(nx, ny)) continue;
-                    map[nx][ny] = (map[nx][ny] + i) % 4;
+                    map[nx][ny] = (map[nx][ny] + i) % 4;        // 인접 좌표 회전 
                 }
                 
-                backtracking(x, y + 1, cnt + i);
+                // 가지치기                
+                boolean flag = true;
+                for(int j = 0; j <= x - 1; j++) {
+                    if(!flag) break;
+                    for(int k = 0; k < n; k++) {
+                        if(j == x - 1 && k > y) continue;
+                        if(map[j][k] != 0) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                }
                 
+                if(flag) backtracking(x, y + 1, cnt + i);       // dfs 호출
+
                 for(int k = x - 1; k <= x + 1; k++) {           // 상태 복구
                     for(int l = y - 1; l <= y + 1; l++) {
                         if(!check(k, l)) continue;
@@ -59,18 +71,16 @@ class Solution {
                     }
                 }
                 
-                if(map[x][y] == 0) break;
             }
         }
     }
     
     static boolean isValid(){
-        for(int i = 0; i < n; i++) {
+        for(int i = n - 2; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 if(map[i][j] != 0) return false;
             }
         }
-        
         return true;
     }
     
