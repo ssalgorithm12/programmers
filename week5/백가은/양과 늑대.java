@@ -15,7 +15,7 @@ class Solution {
     
     public int solution(int[] info, int[][] edges) {
         
-    int len = info.length;                              // 노드 개수
+        int len = info.length;                          // 노드 개수
         tree = new Node[len];                           // 트리 배열
         
         for(int i = 0; i < len; i++) {                  // 각 노드의 값(양/늑대) 저장
