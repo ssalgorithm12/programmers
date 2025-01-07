@@ -47,9 +47,19 @@ class Solution {
                 
         if(wolf >= sheep) return;               // 늑대에게 잡아먹히면 return
         max = Math.max(max, sheep);             // 양 최대값 갱신
+
+        int[] childs = new int[2];
+        childs[0] = tree[node].left;            // 왼쪽 자식 노드
+        childs[1] = tree[node].right;           // 오른쪽 자식 노드
+
+        for(int i = 0; i < 2; i++) {
+
+            if(childs[i] == 0) continue;
+
+        }
         
         // 왼쪽
-        if(tree[node].left != 0) {              // 왼쪽 자식 노드가 있는 경우
+        if(tree[node].left != 0) {              // 가 있는 경우
             int l = tree[node].left;            // 왼쪽 자식 노드의 번호
             int lval = tree[l].n;               // 왼쪽 자식 노드의 값
             
