@@ -37,7 +37,7 @@ class Solution {
 
         visitedByNode[0] = true;                                // 루트노드(0번) 방문처리
         visitedByCnt[0][1][0] = true;
-        backtracking(0, 1, 0);                  // 백트래킹
+        backtracking(0, 1, 0);                                  // 백트래킹
 
         return max;
     }
@@ -54,62 +54,32 @@ class Solution {
 
         for(int i = 0; i < 2; i++) {
 
-            if(childs[i] == 0) continue;
+            if(childs[i] == 0) continue;        // 자식 없으면 continue
+            int c = childs[i];                  // 자식 노드의 번호
+            int val = tree[c].n;                // 자식 노드의 값
 
-        }
-        
-        // 왼쪽
-        if(tree[node].left != 0) {              // 가 있는 경우
-            int l = tree[node].left;            // 왼쪽 자식 노드의 번호
-            int lval = tree[l].n;               // 왼쪽 자식 노드의 값
-            
-            int ns = sheep;                     // 노드 방문 후 양/늑대 값
+            int ns = sheep;                     // 노드 방문 후 양/늑대 개수수
             int nw = wolf;
-            boolean have = visitedByNode[l];    // 이미 방문한 적 있는지 여부
+            boolean have = visitedByNode[c];    // 이미 방문한 적 있는지 여부
             if(!have) {                         // 이미 방문한 적 있다면 값 갱신하지 않음
-                visitedByNode[l] = true;
-                if(lval == 0) ns  += 1;
+                visitedByNode[c] = true;
+                if(val == 0) ns  += 1;
                 else nw += 1;
             }
             
-            if(!visitedByCnt[l][ns][nw]) {
-                visitedByCnt[l][ns][nw] = true;         // 방문처리
+            if(!visitedByCnt[c][ns][nw]) {
+                visitedByCnt[c][ns][nw] = true;         // 방문처리
 
-                backtracking(l, ns, nw);                // DFS 호출
+                backtracking(c, ns, nw);                // DFS 호출
 
-                visitedByCnt[l][ns][nw] = false;        // 방문 해제
-                if(!have) visitedByNode[l] = false;
-            }
-                
-        }
-        
-        // 오른쪽
-        if(tree[node].right != 0) {              // 오른쪽 자식 노드가 있는 경우
-            int r = tree[node].right;            // 오른쪽 자식 노드의 번호
-            int rval = tree[r].n;                // 오른쪽 자식 노드의 값
-            
-            int ns = sheep;                      // 노드 방문 후 양/늑대 값
-            int nw = wolf;
-            boolean have = visitedByNode[r];     // 이미 방문한 적 있는지 여부
-            if(!have) {                          // 이미 방문한 적 있다면 값 갱신하지 않음
-                visitedByNode[r] = true;
-                if(rval == 0) ns  += 1;
-                else nw += 1;
-            }
-            
-            if(!visitedByCnt[r][ns][nw]) {
-                visitedByCnt[r][ns][nw] = true;         // 방문처리
-
-                backtracking(r, ns, nw);                // DFS 호출
-
-                visitedByCnt[r][ns][nw] = false;        // 방문 해제
-                if(!have) visitedByNode[r] = false;
+                visitedByCnt[c][ns][nw] = false;        // 방문 해제
+                if(!have) visitedByNode[c] = false;
             }
         }
         
         // 부모
-        if(tree[node].parent != -1) {              // 부모 노드가 있는 경우
-            int p = tree[node].parent;             // 부모 노드의 번호
+        if(tree[node].parent != -1) {                        // 부모 노드가 있는 경우
+            int p = tree[node].parent;                       // 부모 노드의 번호
             
             if(!visitedByCnt[p][sheep][wolf]) {
                 visitedByCnt[p][sheep][wolf] = true;         // 방문처리
@@ -123,4 +93,5 @@ class Solution {
     }
 }
 
-// 장보광: 중복되는 코드가 많아서 함수로 따로 빼거나 줄일 방법을 생각해보는 게 좋을 듯 
+// 장보광: 중복되는 코드가 많아서 함수로 따로 빼거나 줄일 방법을 생각해보는 게 좋을 듯
+// -> 자식 값을 배열에 넣어 반복문으로 중복 제거
