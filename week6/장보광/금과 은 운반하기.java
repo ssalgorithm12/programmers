@@ -1,4 +1,4 @@
-// 질문 게시판 참고 좀 했습니다. 
+// 이분 탐색을 써야 된다는 것만 참고 하였습니다. 
 class Solution {
     public long solution(int a, int b, int[] g, int[] s, int[] w, int[] t) {
         long left = 0; // 최소 시간 
@@ -31,8 +31,6 @@ class Solution {
         // 결과 판별 
         if(total >= a+b && total_g >= a && total_s >= b)
             return true;
-        else
-            return false;
-                                
+        return false;                      
     }
 }
