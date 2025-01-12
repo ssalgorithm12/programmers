@@ -17,6 +17,9 @@ import java.util.Stack;
   * [보광]
   * - 같은 의견 굳이 if문으로 길이 체크하는 부분은 필요없을 듯 하네요.  
   * - 그리고 k -= 1은 container.add(k); -> container.add(k--); 이런 식으로 바꾸는 게 더 깔끔할 듯 
+  *
+  * [나영]
+  * - 이하동문
   */
 
 public class 표편집 {
