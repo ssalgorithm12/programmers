@@ -1,4 +1,9 @@
 // 이분 탐색을 써야 된다는 것만 참고 하였습니다. 
+
+/*
+ * <가은 피드백>
+ * check 메서드로 판별 로직을 분리하니 가독성이 더 좋은 것 같습니다
+ */
 class Solution {
     public long solution(int a, int b, int[] g, int[] s, int[] w, int[] t) {
         long left = 0; // 최소 시간 
