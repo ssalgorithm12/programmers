@@ -10,6 +10,11 @@ import java.util.Stack;
  * 
  * */
 
+ /*
+  * <가은 피드백>
+  * - if 중첩을 줄이면 가독성이 올라갈 것 같습니다
+  */
+
 public class 표편집 {
 
 	public static void main(String[] args) {
