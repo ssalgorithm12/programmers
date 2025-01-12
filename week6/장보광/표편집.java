@@ -10,6 +10,9 @@ import java.util.*;
  * - U 랑 D 에서 활용하는 부분을 따로 빼서 사용하면 더 좋을 듯
  * - while 때문에 시간초가 더 나오는 듯
  * 
+ * 
+ * [나영]
+ * - U랑 D 내부 while문에서 반복이 많이 실행되는 것 같음
  */
 
 class Solution {
