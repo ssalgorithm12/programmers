@@ -1,5 +1,11 @@
 import java.util.*;
 
+/*
+ * [종명]
+ * - 가독성 좋게 잘 만든듯
+ * 
+ */
+
 class Solution {
     public String solution(int n, int k, String[] cmd) {
         

@@ -3,7 +3,12 @@
 /*
  * <가은 피드백>
  * check 메서드로 판별 로직을 분리하니 가독성이 더 좋은 것 같습니다
+ * 
+ * [종명]
+ * - 가독성 좋게 잘 만든 듯
+ * 
  */
+
 class Solution {
     public long solution(int a, int b, int[] g, int[] s, int[] w, int[] t) {
         long left = 0; // 최소 시간 
