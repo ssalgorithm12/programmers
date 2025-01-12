@@ -1,5 +1,10 @@
 class Solution {
 
+    /*
+     * <가은 피드백>
+     * carry 메서드로 분리하니 가독성 좋은 것 같습니다
+     */
+
     public boolean carry(long time, int a, int b, int[] g, int[] s,
                          int[] w, int[] t) {
 
