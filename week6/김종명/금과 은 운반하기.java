@@ -24,6 +24,10 @@ import java.util.PriorityQueue;
   * 
   *[보광]
   * - 그리디에 대해서는 가은님과 같은 의견 
+  * 
+  *[나영]
+  * - 그리디로 가능한 문제인가 싶음
+  *
   */
 
 public class 금과은운반하기 {
