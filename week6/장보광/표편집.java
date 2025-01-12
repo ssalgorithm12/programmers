@@ -1,5 +1,11 @@
 import java.util.*;
 
+
+/*
+ * <가은 피드백>
+ * - 배열로 접근해서 탐색 시간을 줄이려 했지만 while 반복으로 시간복잡도가 해결이 안 된게 맞나요?
+ * - boolean 배열의 이름을 좀더 명확히 명명하면 보기 더 좋을 것 같습니다
+ */
 class Solution {
     public String solution(int n, int k, String[] cmd) {
         boolean[] arr = new boolean[n];
