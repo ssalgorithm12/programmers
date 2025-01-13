@@ -1,5 +1,15 @@
 import java.util.Stack;
 
+/*
+ * [종명]
+ * - Stack 선언에 제네릭 선언 안하면 경고 뜸
+ * - 변수명 s, ss 이런식으로 가면 가독성이 좀 떨어지는듯
+ * 
+ * [보광]
+ * - 종명님 말하신 거 그대로 
+ */
+
+
 class Solution {
     public String solution(int n, int k, String[] cmd) {
         StringBuilder sb = new StringBuilder();
