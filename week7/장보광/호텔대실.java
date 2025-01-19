@@ -1,3 +1,9 @@
+/*
+ * [종명]
+ * - 뭔가 기능 개발처럼 가독성 좋게 잘 만든 것 같습니다.
+ * 
+ */
+
 class Solution {
     public static int time2num(String time) {
         /*

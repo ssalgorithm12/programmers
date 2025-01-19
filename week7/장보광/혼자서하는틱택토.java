@@ -1,3 +1,9 @@
+/**
+ * [종명]
+ * - 뭔가 간결해보이는데 이해하기는 힘든 느낌이에요
+ * 
+ */
+
 class Solution {
     public int solution(String[] board) {
         int answer = 1;
