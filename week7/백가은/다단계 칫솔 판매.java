@@ -1,5 +1,10 @@
 import java.util.*;
-
+/*
+피드백
+[보광]
+- index 시작을 1로 두신 것 같은 데 이유가 있나요? 
+- 시작이 1이라 중간 중간 -1 연산이 들어간 것 같네요.  
+*/
 // 배열에 부모 번호 저장 후 dfs로 이익금 나누기
 class Solution {
     static Map<String, Integer> map = new HashMap<>();
