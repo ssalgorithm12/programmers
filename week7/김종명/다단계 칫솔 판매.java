@@ -2,6 +2,14 @@ package programmers;
 
 import java.util.HashMap;
 
+/*
+ * 피드백
+ * [가은]
+ * - 정답 배열을 따로 만들 필요 없이
+ *   부모와 금액을 묶은 클래스를 분리하여 관리하고
+ *   바로 리턴하면 더 효율적일 것 같음
+ */
+
 public class 다단계칫솔판매 {
 	
 	public static void main(String[] args) {

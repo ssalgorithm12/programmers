@@ -1,4 +1,11 @@
 import java.util.*;
+
+/*
+ * 피드백
+ * 
+ * [가은]
+ * - 시간 변경 -> 메서드로 만들면 가독성 높아질듯
+ */
 class Solution {
     public int solution(String[][] book_time) {
         int answer = 0;
