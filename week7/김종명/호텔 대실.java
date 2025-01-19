@@ -2,6 +2,12 @@ package programmers;
 
 import java.util.PriorityQueue;
 
+/*
+피드백
+[보광]
+- PQ를 나름 효율적으로 쓰신 것 같으시네요. 
+*/
+
 public class 호텔대실 {
 
 	public static void main(String[] args) {
