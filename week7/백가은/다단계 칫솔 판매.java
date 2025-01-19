@@ -7,6 +7,9 @@ import java.util.*;
 
 [종명]
 - 보광님 말처럼 enroll 부분 for문에 1부터 시작 안해도 될 듯
+
+[나영]
+- 저도 위 내용 외에는 잘 짠 것 같습니다.
 */
 // 배열에 부모 번호 저장 후 dfs로 이익금 나누기
 class Solution {
