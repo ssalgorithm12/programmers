@@ -1,6 +1,11 @@
 class Solution {
     public static int time2num(String time) {
-        // "HH:MM" 형식의 문자열을 분 단위로 변환
+        /*
+            - 기능: "HH:MM" 형식의 문자열을 분 단위로 변환
+            - 입력
+                time: 시간 값(스트링) "HH:MM"
+            - 출력: 시간을 분 단위로 계산하여 반환 
+        */
         int hours = Integer.parseInt(time.substring(0, 2));
         int minutes = Integer.parseInt(time.substring(3, 5));
         return hours * 60 + minutes;
