@@ -1,5 +1,13 @@
 import java.util.*;
 
+/**
+ * [종명]
+ * - 가독성 좋게 잘 만든 것 같습니다.
+ *
+ * [나영]
+ * - 가장 짧게 잘 만드셔서 이해가 잘 됩니다.
+ */
+
 class Solution {
     int[] parent;
     int[] income;

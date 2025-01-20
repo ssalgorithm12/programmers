@@ -1,5 +1,16 @@
 import java.util.*;
+/*
+피드백
+[보광]
+- index 시작을 1로 두신 것 같은 데 이유가 있나요? 
+- 시작이 1이라 중간 중간 -1 연산이 들어간 것 같네요. 
 
+[종명]
+- 보광님 말처럼 enroll 부분 for문에 1부터 시작 안해도 될 듯
+
+[나영]
+- 저도 위 내용 외에는 잘 짠 것 같습니다.
+*/
 // 배열에 부모 번호 저장 후 dfs로 이익금 나누기
 class Solution {
     static Map<String, Integer> map = new HashMap<>();

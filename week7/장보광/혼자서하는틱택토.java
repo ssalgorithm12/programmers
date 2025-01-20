@@ -1,3 +1,11 @@
+/**
+ * [종명]
+ * - 뭔가 간결해보이는데 이해하기는 힘든 느낌이에요
+ * 
+ * [나영]
+ * - 전에 풀었던 상자?문제처럼 안되는 경우의 수만 찾아내서 거르는 방식이라고 일단 생각했습니다.
+ */
+
 class Solution {
     public int solution(String[] board) {
         int answer = 1;
