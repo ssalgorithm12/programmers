@@ -1,13 +1,27 @@
 import java.util.*;
 
-// 리프노드에서 출발하여 가운데로 향하며 숫자 몰아주기
 class Solution {
-    static int n, ans;
-    static int[] val;
+    static int n;
+    static long[] val;
     static List<Integer>[] adj;
     public long solution(int[] a, int[][] edges) {
-        val = a;
         n = a.length;
+        val = new long[n];
+        
+        long sum = 0;
+        boolean flag = true;
+        for(int i = 0; i < n; i++) {
+            int tmp = a[i];
+            
+            val[i] = tmp;
+            sum += tmp;
+            if(tmp != 0 && flag) flag = false;
+        }
+        
+        // 모든 가중치가 0인 경우, 불가능한 경우 처리
+        if(sum != 0) return -1;
+        if(flag) return 0;
+        
         adj = new List[n];
         for(int i = 0; i < n; i++) {
             adj[i] = new ArrayList<>();
@@ -25,8 +39,30 @@ class Solution {
         return bfs();
     }
     
-    // 리프에서 시작해서 동시에 한 칸 씩 움직일 방법????
-    // 부모가 동일한 노드가 있을 수 있으므로
-    // 중복 방문 가능해야 함
-    // bfs는 적합하지 않음
+    // 리프노드부터 시작해서 횟수 더하기
+    static long bfs() {
+        Queue<Integer> q = new LinkedList<>();
+        // 리프노드를 큐에 추가하기
+        for(int i = 0; i < n; i++) {
+            if(adj[i].size() == 1) q.offer(i);
+        }
+        
+        boolean[] visited = new boolean[n];
+        long ans = 0;
+        
+        while(!q.isEmpty()) {
+            int cur = q.poll();
+            if(visited[cur]) continue;
+            
+            visited[cur] = true;
+            ans += Math.abs(val[cur]);
+            
+            for(int a : adj[cur]) {
+                if(visited[a]) continue;
+                q.offer(a);
+                val[a] += val[cur];
+            }
+        }
+        return ans;
+    }
 }
