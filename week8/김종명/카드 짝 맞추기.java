@@ -15,6 +15,7 @@ public class 카드짝맞추기 {
 	static int size = 4;
 	static int cnt;
 	static int min_dist;
+	static int[] p;
 	static int[] dr = {-1, 0, 1, 0};
 	static int[] dc = {0, 1, 0, -1};
 	static int[][] map = new int[size][size];
@@ -46,24 +47,44 @@ public class 카드짝맞추기 {
 		
 		min_dist = Integer.MAX_VALUE - 1;
 		
-		DFS(0, r, c, 0);
+		p = new int[cnt];
 		
-        int answer = 0;
-        return answer;
+		DFS(0, 1, r, c);
+		
+		return min_dist;
     }
 	
-	static void DFS(int depth, int r, int c, int distance) {
+	static void DFS(int depth, int start, int r, int c) {
+		
 		if(depth == cnt) {
 			
-			if(distance < min_dist) {
-				min_dist = distance;
+			int y = r;
+			int x = c;
+			int dist = 0;
+			
+			for(int i=0; i<cnt; i++) {
+				
+				int[] ans = findPair(p[i], y, x);
+				dist += ans[2];
+				
+				ans = findPair(p[i], ans[0], ans[1]);
+				dist += ans[2];
+				y = ans[0];
+				x = ans[1];
+			}
+			
+			if(dist < min_dist) {
+				min_dist = dist;
 			}
 			
 			return;
 		}
 		
-		if()
-		
+		for(int i=start; i<=cnt; i++) {
+			
+			p[depth] = i;
+			DFS(depth + 1, i+1, r, c);
+		}
 	}
 	
 	// 해당 카드의 짝을 찾거나 다음 카드를 찾아주는 BFS 함수
@@ -89,19 +110,12 @@ public class 카드짝맞추기 {
 				int cr = cur.r;
 				int cc = cur.c;
 				
-				if(target > -1) {
-					if(map[cr][cc] == target) {
-						// 도착하면 해당 카드들 0으로 변경
-						map[r][c] = 0;
-						map[cr][cc] = 0;
+				if(map[cr][cc] == target) {
+					// 도착하면 해당 카드들 0으로 변경
+					map[r][c] = 0;
+					map[cr][cc] = 0;
 						
-						return new int[] {cr, cc, dist};
-					}
-				}else if(target == -1) {
-					if(map[cr][cc] > 0) {
-						
-						return new int[] {cr, cc, dist};
-					}
+					return new int[] {cr, cc, dist};
 				}
 				
 				for(int d=0; d<4; d++) {
