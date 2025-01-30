@@ -20,8 +20,17 @@ class Solution {
         return answer;
     }
     
-    // 두 지점 사이의 거리를 계산하는 함수 
     int cal(int a1, int a2, int b1, int b2, int x){
+        /*
+            - 기능: 두 지점 사이의 거리를 계산하는 함수
+            - 입력
+                a1: 첫번째 공의 좌표값1
+                a2: 두번째 공의 좌표값1
+                b1: 첫번째 공의 좌표값2
+                b2: 두번째 공의 좌표값2
+                x: 벽면의 위치 
+            - 출력: 거리(int)
+        */
         return (a1 - a2)*(a1 - a2) + (2*x - b1 - b2)*(2*x - b1 - b2);
     }
 }
