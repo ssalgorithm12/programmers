@@ -4,23 +4,22 @@ class Solution {
     static int n;
     static long[] val;
     static List<Integer>[] adj;
+    static int[] parent;
+    
     public long solution(int[] a, int[][] edges) {
         n = a.length;
         val = new long[n];
+        parent = new int[n];
         
         long sum = 0;
-        boolean flag = true;
         for(int i = 0; i < n; i++) {
             int tmp = a[i];
-            
             val[i] = tmp;
             sum += tmp;
-            if(tmp != 0 && flag) flag = false;
         }
         
         // 모든 가중치가 0인 경우, 불가능한 경우 처리
         if(sum != 0) return -1;
-        if(flag) return 0;
         
         adj = new List[n];
         for(int i = 0; i < n; i++) {
@@ -36,15 +35,17 @@ class Solution {
             adj[v].add(u);
         }
         
+        for(int i = 0; i < n; i++) {
+            parent[i] = adj[i].size();
+        }
+        
         return bfs();
     }
     
-    // 리프노드부터 시작해서 횟수 더하기
     static long bfs() {
         Queue<Integer> q = new LinkedList<>();
-        // 리프노드를 큐에 추가하기
         for(int i = 0; i < n; i++) {
-            if(adj[i].size() == 1) q.offer(i);
+            if(parent[i] == 1) q.offer(i);
         }
         
         boolean[] visited = new boolean[n];
@@ -56,11 +57,13 @@ class Solution {
             
             visited[cur] = true;
             ans += Math.abs(val[cur]);
+            parent[cur]--;
+            
             
             for(int a : adj[cur]) {
                 if(visited[a]) continue;
-                q.offer(a);
                 val[a] += val[cur];
+                if(--parent[a] == 1) q.offer(a);
             }
         }
         return ans;
