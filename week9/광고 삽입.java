@@ -5,24 +5,24 @@ class Solution {
         int len = convertToSecond(play_time);
         int[] time = new int[len + 1];
         
-        // stack.size()로 개수 세기?
+        // 개수 카운트
         for(int i = 0; i < logs.length; i++) {
             String[] s = logs[i].split("-");
             int start = convertToSecond(s[0]);
             int end = convertToSecond(s[1]);
             
-            for(int j = start; j <= end; j++) {
+            for(int j = start; j < end; j++) {
                 time[j]++;
             }
         }
         
-        int max = 0;
+        long max = 0;
         int ans = 0;
         
         int left = 0;
-        int right = convertToSecond(adv_time);
+        int right = convertToSecond(adv_time) - 1;
         
-        int cnt = 0;
+        long cnt = 0;
         for(int i = left; i <= right; i++) {
             cnt += time[i];
         }
