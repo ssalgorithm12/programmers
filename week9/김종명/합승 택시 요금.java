@@ -51,8 +51,7 @@ class Solution {
         
         Daijkstra(s, a, b, fares);
         
-        int answer = 0;
-        return answer;
+        return N[a].dist;
     }
     
     public void Daijkstra(int s, int a, int b, int[][] fares){
@@ -60,6 +59,7 @@ class Solution {
         Queue<int[]> container = new LinkedList<>();
         
         container.offer(new int[]{s, s});
+        N[s].dist = 0;
         
         while(!container.isEmpty()){
             
@@ -68,9 +68,44 @@ class Solution {
             int A = cur[0];
             int B = cur[1];
             
+            for(int i=0; i<N[A].link.size(); i++){
+                for(int j=0; j<N[B].link.size(); j++){
+                 
+                    int NA = N[A].link.get(i).target;
+                    int NB = N[B].link.get(j).target;
+                    
+                    if(A == B && NA == NB){
+                        // 현재 지점과 다음 지점이 같을 때
+                        if(N[NA].dist > N[A].dist + N[A].link.get(i).weight){
+                            N[NA].dist = N[A].dist + N[A].link.get(i).weight;
+                            container.offer(new int[]{NA, NB});
+                        }
+                    }else{
+                        // 현재 지점과 다음 지점이 다를 때
+                        if(N[NA].dist > N[A].dist + N[A].link.get(i).weight + N[B].link.get(j).weight
+                            && N[NB].dist > N[B].dist + N[A].link.get(i).weight + N[B].link.get(j).weight){
+                            N[NA].dist = N[A].dist + N[A].link.get(i).weight + N[B].link.get(j).weight;
+                            N[NB].dist = N[B].dist + N[A].link.get(i).weight + N[B].link.get(j).weight;
+                            container.offer(new int[]{NA, NB});
+                        }
+                    }
+                    
+                }
+            }
             
         }
         
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
